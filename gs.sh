@@ -44,7 +44,7 @@ then
 
   git add .
   git commit -m "$message"
-  git push origin heads
+  git push origin head
 
 elif [[ $choice == "c" ]]
 then

@@ -1,7 +1,7 @@
 Write-Output "what do you want to do?`n"
 Write-Output "  [p] - Push changes to master"
 Write-Output "  [d] - Delete local branch"
-Write-Output "  [c] - Create and check out branhc"
+Write-Output "  [c] - Create and check out branch"
 Write-Output "  [ESC] exit"
 
 $choice = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown");

@@ -22,7 +22,7 @@ function Format-Branch-Name($name)
   return $name.Trim();
 }
 
-function Prompt-Delete
+function Prompt-Delete($mainBranch)
 {
   $branches = git branch
   
@@ -33,17 +33,17 @@ function Prompt-Delete
   }
   
   $index = 0;
-  
+
   Write-Header($branches);
-  
+
   $lastBranchName = $branches[$index];
-  
+
   $posY = [console]::CursorTop
   $posX = [console]::CursorLeft
-  
+
   Write-Host -NoNewline (Format-Branch-Name($branches[$index]));
   $key = [console]::ReadKey($true);
-  
+
   while ($key.Key -ne "Enter")
   {
     if ($key.Key -eq 'UpArrow')
@@ -67,25 +67,25 @@ function Prompt-Delete
       Write-Host "`n"
       Exit
     }
-    
+
     [console]::setcursorposition($posX,$posY);
     Clear-Text($lastBranchName.length);
     [console]::setcursorposition($posX,$posY);
-    
+
     $lastBranchName = $branches[$index];
-    
+
     Write-Host -NoNewline (Format-Branch-Name($branches[$index]));
     $key = [console]::ReadKey($true);
   }
 
   $name = Format-Branch-Name($branches[$index]);
-  
+
   Write-Host "`n"
   
   $confirmation = Read-Host "Delete branch ""$($name)"" -> you sure? {y/n)"
   if ($confirmation -eq 'y')
   {
-    git checkout master
+    git checkout $mainBranch
     git pull
     git fetch -p
     git branch -D $name

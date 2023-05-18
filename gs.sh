@@ -10,7 +10,6 @@ then
   [[ $branches =~ (^|[[:space:]])"main"($|[[:space:]]) ]] && hasMain=1 || hasMain=0
   [[ $branches =~ (^|[[:space:]])"master"($|[[:space:]]) ]] && hasMaster=1 || hasMaster=0
 
-
   if [[ "$hasMain" == 1 ]]
   then
     masterBranch="main"

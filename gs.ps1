@@ -24,6 +24,7 @@ if ($mainBranch -eq "")
 Write-Output "Choose option for branch '$($mainBranch)'`n"
 Write-Output "  [p] - Push changes to '$($mainBranch)'"
 Write-Output "  [d] - Delete local branch"
+Write-Output "  [s] - Switch local branch"
 Write-Output "  [c] - Create and check out branch"
 Write-Output "  [ESC] exit"
 
@@ -42,6 +43,13 @@ elseif ($choice.Character -eq "d")
   . $scriptPath
   
   Prompt-Delete($mainBranch)
+}
+elseif ($choice.Character -eq "s")
+{
+  $scriptPath = $PSScriptRoot + "\prompt-switch-local-branch.ps1"
+  . $scriptPath
+
+  Prompt-Switch
 }
 elseif ($choice.Character -eq "p")
 {

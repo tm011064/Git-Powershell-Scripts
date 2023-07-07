@@ -25,6 +25,7 @@ Write-Output "Choose option for branch '$($mainBranch)'`n"
 Write-Output "  [p] - Push changes to '$($mainBranch)'"
 Write-Output "  [d] - Delete local branch"
 Write-Output "  [s] - Switch local branch"
+Write-Output "  [r] - Switch remote branch"
 Write-Output "  [c] - Create and check out branch"
 Write-Output "  [ESC] exit"
 
@@ -50,6 +51,13 @@ elseif ($choice.Character -eq "s")
   . $scriptPath
 
   Prompt-Switch
+}
+elseif ($choice.Character -eq "r")
+{
+  $scriptPath = $PSScriptRoot + "\prompt-switch-local-branch.ps1"
+  . $scriptPath
+
+  Prompt-Switch-Remote
 }
 elseif ($choice.Character -eq "p")
 {

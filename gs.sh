@@ -31,13 +31,14 @@ echo "  [p] - push changes to $masterBranch"
 echo "  [d] - delete local branch"
 echo "  [c] - create and check out branch"
 echo "  [s] - switch/checkout branch"
+echo "  [r] - switch/checkout remote branch"
 echo "  [ESC] exit"
 
 read -r -n 1 -s choice
 
 if [[ $choice == "p" ]]
 then
-  
+
   echo "enter commit message"
   read -r message
 
@@ -57,7 +58,7 @@ then
 
 elif [[ $choice == "d" ]]
 then
-  
+
   echo "select the branch to delete:"
 
   select branch in $(git for-each-ref refs/heads  | cut -d/ -f3-)
@@ -73,7 +74,7 @@ then
     git pull
     git fetch -p
     git branch -D "$branch"
-    git branch
+    git -P branch
 
     break
   done
@@ -84,10 +85,22 @@ then
   echo "select the branch to checkout:"
 
   select branch in $(git for-each-ref refs/heads  | cut -d/ -f3-)
-  do    
+  do
+    git checkout "$branch"
+    break
+  done
+
+elif [[ $choice == "r" ]]
+then
+
+  echo "select the branch to checkout:"
+
+  select branch in $(git ls-remote --heads origin | cut -d/ -f3-)
+  do
     git checkout "$branch"
     break
   done
 else
   echo "Command $choice not found"
 fi
+
